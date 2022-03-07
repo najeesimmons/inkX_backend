@@ -11,6 +11,9 @@ const express = require("express");
 const app = express();
 // import mongoose
 const mongoose = require("mongoose");
+// import middlware
+const cors = require("cors");
+const morgan = require("morgan");
 
 
 /////// DATABASE CONNECTION ////////
