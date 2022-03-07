@@ -28,7 +28,27 @@ mongoose.connect(MONGODB_URL, {
     .on("close", () => console.log("Your are disconnected from mongoose"))
     .on("error", (error) => console.log(error));
   
+////////////// MODELS /////////////
+const ArtistSchema = new mongoose.Schema({
+    first_name: String,
+    land_name: String,
+    username: String,
+    password: String,
+    email: String,
+    bio: String,
+    profile_pic: String,
+    city: String,
+    state: String,
+    phone: String,
+});
+      
+    const Artist = mongoose.model("Artist", ArtistSchema);
 
+
+///////////MiddleWare///////////////
+app.use(cors()); // to prevent cors errors, open access to all origins
+app.use(morgan("dev")); // logging
+app.use(express.json()); // parse json bodies
 
 ////////////// ROUTES /////////////
 // create a test route
