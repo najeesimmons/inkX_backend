@@ -31,7 +31,7 @@ mongoose.connect(MONGODB_URL, {
 ////////////// MODELS /////////////
 const ArtistSchema = new mongoose.Schema({
     first_name: String,
-    land_name: String,
+    last_name: String,
     username: String,
     password: String,
     email: String,
