@@ -51,7 +51,7 @@ app.use(morgan("dev")); // logging
 app.use(express.json()); // parse json bodies
 
 ////////////// ROUTES /////////////
-// create a test route
+/////// create a test route ///////
 app.get("/", (req, res) => {
     res.send("hello world");
 });
@@ -81,7 +81,7 @@ app.post("/artist", async (req, res) => {
 ////// Artist Update Route ////////
 app.put("/artist/:id", async (req, res) => {
   try {
-    // send all people
+    // update artist with req.body
     res.json(
       await Artist.findByIdAndUpdate(req.params.id, req.body, { new: true })
     );
@@ -94,7 +94,7 @@ app.put("/artist/:id", async (req, res) => {
 ////// Artist Delete Route ////////
 app.delete("/artist/:id", async (req, res) => {
   try {
-    // send all people
+    // find and delete artist
     res.json(await Artist.findByIdAndRemove(req.params.id));
   } catch (error) {
     //send error
