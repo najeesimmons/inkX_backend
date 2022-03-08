@@ -56,10 +56,46 @@ app.get("/", (req, res) => {
     res.send("hello world");
 });
 
+/////// Artist Index Route ////////
 app.get("/artist", async (req, res) => {
   try {
     // send all artists
     res.json(await Artist.find({}));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+////// Artist Create Route ////////
+app.post("/artist", async (req, res) => {
+  try {
+    // add artist to req.body
+    res.json(await Artist.create(req.body));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+////// Artist Update Route ////////
+app.put("/artist/:id", async (req, res) => {
+  try {
+    // send all people
+    res.json(
+      await Artist.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    );
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+// PEOPLE DELETE ROUTE
+app.delete("/artist/:id", async (req, res) => {
+  try {
+    // send all people
+    res.json(await Artist.findByIdAndRemove(req.params.id));
   } catch (error) {
     //send error
     res.status(400).json(error);
