@@ -91,7 +91,7 @@ app.put("/artist/:id", async (req, res) => {
   }
 });
 
-// PEOPLE DELETE ROUTE
+////// Artist Delete Route ////////
 app.delete("/artist/:id", async (req, res) => {
   try {
     // send all people
