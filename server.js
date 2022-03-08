@@ -56,5 +56,15 @@ app.get("/", (req, res) => {
     res.send("hello world");
 });
 
+app.get("/artist", async (req, res) => {
+  try {
+    // send all artists
+    res.json(await Artist.find({}));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
 //////////// LISTENER /////////////
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
