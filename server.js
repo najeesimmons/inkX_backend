@@ -48,7 +48,10 @@ const ArtistSchema = new mongoose.Schema({
     
 ///////////Piece Model///////////
 const PieceSchema = new mongoose.Schema({
-    artist: { type: Schema.Types.ObjectId, ref: 'Artist' },
+  artist: {
+    type: mongoose.Types.ObjectId,
+    ref: "Artist",
+}, 
     // I have the above wrong, app says Schema here is undefined 
     date: { type: Date, default: Date.now },
     description: String,
