@@ -29,6 +29,8 @@ mongoose.connect(MONGODB_URL, {
     .on("error", (error) => console.log(error));
   
 ////////////// MODELS /////////////
+
+///////////Artist Model///////////
 const ArtistSchema = new mongoose.Schema({
     first_name: String,
     last_name: String,
@@ -43,7 +45,16 @@ const ArtistSchema = new mongoose.Schema({
 });
       
     const Artist = mongoose.model("Artist", ArtistSchema);
+    
+///////////Piece Model///////////
+const PieceSchema = new mongoose.Schema({
+    artist: { type: Schema.Types.ObjectId, ref: Artist },
+    date: { type: Date, default: Date.now },
+    description: String,
+    image: String 
+});
 
+    const Piece = mongoose.model("Piece", PieceSchema);
 
 ///////////MiddleWare///////////////
 app.use(cors()); // to prevent cors errors, open access to all origins
