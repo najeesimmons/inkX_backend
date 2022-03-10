@@ -48,7 +48,8 @@ const ArtistSchema = new mongoose.Schema({
     
 ///////////Piece Model///////////
 const PieceSchema = new mongoose.Schema({
-  artist: {
+    title: {default: "Title Not Yet Provided"},
+    artist: {
     type: mongoose.Types.ObjectId,
     ref: "Artist",
 }, 
