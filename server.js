@@ -52,7 +52,6 @@ const PieceSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Artist",
 }, 
-    // I have the above wrong, app says Schema here is undefined 
     date: { type: Date, default: Date.now },
     description: String,
     image: String 
