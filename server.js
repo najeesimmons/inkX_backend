@@ -1,5 +1,5 @@
 
-/////////// DEPENDENCIES //////////
+/////////// DEPENDENCIES //////////*/////////// DEPENDENCIES //////////
 // get .env variables
 require("dotenv").config();
 // pull PORT from .env, give default value of 3000
@@ -16,7 +16,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 
-/////// DATABASE CONNECTION ////////
+/////// DATABASE CONNECTION ////////*/////// DATABASE CONNECTION ////////
 /////// Establish Connection ///////
 mongoose.connect(MONGODB_URL, {
     useUnifiedTopology: true,
@@ -28,7 +28,7 @@ mongoose.connect(MONGODB_URL, {
     .on("close", () => console.log("Your are disconnected from mongoose"))
     .on("error", (error) => console.log(error));
   
-////////////// MODELS /////////////
+////////////// MODELS ///////////// * ////////////// MODELS /////////////
 
 ///////////Artist Model///////////
 const ArtistSchema = new mongoose.Schema({
@@ -48,7 +48,8 @@ const ArtistSchema = new mongoose.Schema({
     
 ///////////Piece Model///////////
 const PieceSchema = new mongoose.Schema({
-    artist: { type: Schema.Types.ObjectId, ref: Artist },
+    artist: { type: Schema.Types.ObjectId, ref: 'Artist' },
+    // I have the above wrong, app says Schema here is undefined 
     date: { type: Date, default: Date.now },
     description: String,
     image: String 
@@ -61,11 +62,14 @@ app.use(cors()); // to prevent cors errors, open access to all origins
 app.use(morgan("dev")); // logging
 app.use(express.json()); // parse json bodies
 
-////////////// ROUTES /////////////
+////////////// ROUTES ///////////// * ////////////// ROUTES /////////////
+
 /////// create a test route ///////
 app.get("/", (req, res) => {
     res.send("hello world");
 });
+
+///////////ARTIST ROUTES/////////// * ///////////ARTIST ROUTES///////////
 
 /////// Artist Index Route ////////
 app.get("/artist", async (req, res) => {
@@ -81,7 +85,7 @@ app.get("/artist", async (req, res) => {
 ////// Artist Create Route ////////
 app.post("/artist", async (req, res) => {
   try {
-    // add artist to req.body
+    // add new artist to req.body
     res.json(await Artist.create(req.body));
   } catch (error) {
     //send error
@@ -107,6 +111,54 @@ app.delete("/artist/:id", async (req, res) => {
   try {
     // find and delete artist
     res.json(await Artist.findByIdAndRemove(req.params.id));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+///////////PIECE ROUTES///////////* ///////////PIECE ROUTES///////////
+/////// Piece Index Route ////////
+
+app.get("/piece", async (req, res) => {
+  try {
+    // send all pieces
+    res.json(await Piece.find({}));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+////// Piece Create Route ////////
+app.post("/piece", async (req, res) => {
+  try {
+    // add new piece to req.body
+    res.json(await Piece.create(req.body));
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+////// Piece Update Route ////////
+app.put("/piece/:id", async (req, res) => {
+  try {
+    // update piece with req.body
+    res.json(
+      await Piece.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    );
+  } catch (error) {
+    //send error
+    res.status(400).json(error);
+  }
+});
+
+////// Piece Delete Route ////////
+app.delete("/piece/:id", async (req, res) => {
+  try {
+    // find and delete artist
+    res.json(await Piece.findByIdAndRemove(req.params.id));
   } catch (error) {
     //send error
     res.status(400).json(error);
