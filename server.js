@@ -28,7 +28,7 @@ mongoose.connect(MONGODB_URL, {
     .on("close", () => console.log("Your are disconnected from mongoose"))
     .on("error", (error) => console.log(error));
   
-////////////// MODELS ///////////// * ////////////// MODELS /////////////
+////////////// MODELS ///////////// * ////////////// MODELS //////////////
 
 ///////////Artist Model///////////
 const ArtistSchema = new mongoose.Schema({
